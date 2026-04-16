@@ -5,10 +5,17 @@ load_dotenv()
 
 class Config:
 	GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-	SEARCH_RADIUS_METERS = 8000
+	
+	# Origin Point dynamically loaded from .env
+	SEARCH_CENTER_LAT = float(os.getenv("SEARCH_CENTER_LAT"))
+	SEARCH_CENTER_LNG = float(os.getenv("SEARCH_CENTER_LNG"))
+	
+	SEARCH_RADIUS_METERS = 50000 
+	
 	TARGET_PRICE = 1500
 	PRICE_VARIANCE_PCT = 0.05
 	MAX_COMMUTE_MINS = 25
 	
-	TARGET_DESTINATION_LAT = os.getenv("TARGET_LAT", "40.0992")
-	TARGET_DESTINATION_LNG = os.getenv("TARGET_LNG", "-83.1141")
+	# Target destination dynamically loaded from .env
+	TARGET_DESTINATION_LAT = os.getenv("TARGET_LAT")
+	TARGET_DESTINATION_LNG = os.getenv("TARGET_LNG")
