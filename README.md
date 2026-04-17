@@ -42,7 +42,7 @@ Setup
        - MIN_REVIEW_COUNT   — Minimum number of reviews for rated listings (default: 10)
        - TARGET_PRICE       — Target monthly rent (default: 1350)
        - PRICE_VARIANCE_PCT — Allowed variance around target price (default: 0.05)
-       - SEARCH_RADIUS_METERS — Radius per grid sector (default: 50000)
+       - SEARCH_RADIUS_METERS — Radius per grid sector (default: 16000)
 
 
 Running
