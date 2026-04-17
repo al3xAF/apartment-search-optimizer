@@ -9,6 +9,8 @@ class Apartment:
 	lng: float
 	place_id: str
 	website: Optional[str] = None
+	rating: Optional[float] = None
+	user_rating_count: Optional[int] = None
 	commute_time_mins: Optional[int] = None
 	studio_price: Optional[int] = None
 	one_bed_price: Optional[int] = None
