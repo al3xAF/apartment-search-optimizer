@@ -18,10 +18,10 @@ def fetch_nearby_apartments() -> List[Apartment]:
     
     url = "https://places.googleapis.com/v1/places:searchNearby"
     headers = {
-        "Content-Type": "application/json",
-        "X-Goog-Api-Key": Config.GOOGLE_API_KEY,
-        "X-Goog-FieldMask": "places.id,places.displayName.text,places.formattedAddress,places.location,places.websiteUri"
-    }
+		"Content-Type": "application/json",
+		"X-Goog-Api-Key": Config.GOOGLE_API_KEY,
+		"X-Goog-FieldMask": "places.id,places.displayName.text,places.formattedAddress,places.location,places.websiteUri,places.rating,places.userRatingCount"
+	}
     
     apartments = []
     seen_ids = set() # Tracks duplicates across overlapping circles
@@ -70,7 +70,9 @@ def fetch_nearby_apartments() -> List[Apartment]:
                 lat=place.get("location", {}).get("latitude", 0.0),
                 lng=place.get("location", {}).get("longitude", 0.0),
                 place_id=place_id,
-                website=place.get("websiteUri")
+                website=place.get("websiteUri"),
+                rating=place.get("rating"),
+                user_rating_count=place.get("userRatingCount")
             )
             apartments.append(apt)
             
