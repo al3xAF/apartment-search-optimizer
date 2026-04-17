@@ -55,6 +55,23 @@ Running
 After each run, the script exports a spreadsheet to the configured `OUTPUT_SPREADSHEET_PATH`.
 
 
+Quick Smoke Test
+----------------
+Use this checklist after setup to confirm everything is wired correctly:
+
+1. Run `python main.py`.
+2. Confirm the app prints sector progress for the Places sweep.
+3. Confirm filtered apartment output appears in the terminal.
+4. Confirm a spreadsheet is created at `outputs/apartment_results.xlsx` (or your configured `OUTPUT_SPREADSHEET_PATH`).
+
+
+Disclaimer
+----------
+- This project uses paid Google APIs (Places API and Distance Matrix API).
+- API usage can incur charges depending on your Google Cloud billing plan.
+- You are responsible for reviewing quotas, pricing, and usage limits before running large scans.
+
+
 Required Google APIs
 --------------------
 Enable both of these in your Google Cloud project:
