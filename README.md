@@ -37,12 +37,12 @@ Setup
        TARGET_LNG=your_destination_longitude
 
 4. (Optional) Adjust thresholds in config.py:
-       - MAX_COMMUTE_MINS   — Maximum acceptable commute in minutes (default: 30)
-       - MIN_RATING         — Minimum rating to keep a rated listing (default: 4.0)
-       - MIN_REVIEW_COUNT   — Minimum number of reviews for rated listings (default: 10)
-       - TARGET_PRICE       — Target monthly rent (default: 1350)
-       - PRICE_VARIANCE_PCT — Allowed variance around target price (default: 0.05)
-       - SEARCH_RADIUS_METERS — Radius per grid sector (default: 16000)
+   - `MAX_COMMUTE_MINS` — Maximum acceptable commute in minutes (default: 30)
+   - `MIN_RATING` — Minimum rating to keep a rated listing (default: 4.0)
+   - `MIN_REVIEW_COUNT` — Minimum number of reviews for rated listings (default: 10)
+   - `TARGET_PRICE` — Target monthly rent (default: 1350)
+   - `PRICE_VARIANCE_PCT` — Allowed variance around target price (default: 0.05)
+   - `SEARCH_RADIUS_METERS` — Radius per grid sector (default: 16000)
 
 
 Running
