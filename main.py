@@ -1,32 +1,40 @@
 from config import Config
 from api.places import fetch_nearby_apartments
+from api.filters import apply_rating_filter, apply_website_filter
 from api.commute import filter_by_commute
 
 def main():
-    print("Starting Apartment Tour Optimizer...\n")
-    
-    # We still need these for the commute filter later
-    search_lat = float(Config.TARGET_DESTINATION_LAT)
-    search_lng = float(Config.TARGET_DESTINATION_LNG)
-    
-    # Step 1: Fetch Locations using the 5x5 grid sweep (No arguments needed!)
-    apartments = fetch_nearby_apartments()
-    
-    print(f"\nFound {len(apartments)} unique apartments across the metro area!")
-    print("-" * 40)
-    
-    # Step 2: Filter by Commute (Pass the target destination in here)
-    viable_apartments = filter_by_commute(apartments, search_lat, search_lng)
-    
-    print(f"\nFound {len(viable_apartments)} apartments within a {Config.MAX_COMMUTE_MINS}-minute drive!")
-    print("-" * 40)
-    
-    for apt in viable_apartments:
-        website_display = apt.website if apt.website else "No website listed"
-        print(f"{apt.name}")
-        print(f"Location: {apt.address}")
-        print(f"Commute: {apt.commute_time_mins} mins")
-        print(f"Link: {website_display}\n")
+	print("Starting Apartment Tour Optimizer...\n")
+	
+	search_lat = float(Config.TARGET_DESTINATION_LAT)
+	search_lng = float(Config.TARGET_DESTINATION_LNG)
+	
+	# Step 1: Grid Sweep
+	apartments = fetch_nearby_apartments()
+	print(f"\nFound {len(apartments)} unique apartments across the metro area!")
+	print("-" * 40)
+	
+	# Step 2: Rating Filter (Runs before the commute check!)
+	good_apartments = apply_rating_filter(apartments)
+	
+	# Step 3: Website Filter
+	good_apartments = apply_website_filter(good_apartments)
+	print("-" * 40)
+	
+	# Step 4: Commute Filter
+	viable_apartments = filter_by_commute(good_apartments, search_lat, search_lng)
+	print(f"\nFound {len(viable_apartments)} apartments within a {Config.MAX_COMMUTE_MINS}-minute drive!")
+	print("-" * 40)
+	
+	# Output
+	for apt in viable_apartments:
+		website_display = apt.website if apt.website else "No website listed"
+		rating_display = f"{apt.rating}★ ({apt.user_rating_count} reviews)" if apt.rating else "No reviews"
+		
+		print(f"{apt.name} | {rating_display}")
+		print(f"Location: {apt.address}")
+		print(f"Commute: {apt.commute_time_mins} mins")
+		print(f"Link: {website_display}\n")
 
 if __name__ == "__main__":
-    main()
+	main()
