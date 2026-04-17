@@ -15,6 +15,8 @@ class Config:
 	TARGET_PRICE = 1350
 	PRICE_VARIANCE_PCT = 0.05
 	MAX_COMMUTE_MINS = 30
+	MIN_RATING = 4.0
+	MIN_REVIEW_COUNT = 10
 	
 	# Target destination dynamically loaded from .env
 	TARGET_DESTINATION_LAT = float(os.getenv("TARGET_LAT"))
