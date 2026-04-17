@@ -2,6 +2,7 @@ from config import Config
 from api.places import fetch_nearby_apartments
 from api.filters import apply_rating_filter, apply_website_filter
 from api.commute import filter_by_commute
+from output.spreadsheet import export_apartments_to_spreadsheet
 
 def main():
 	print("Starting Apartment Tour Optimizer...\n")
@@ -34,6 +35,12 @@ def main():
 		print(f"Location: {apt.address}")
 		print(f"Commute: {apt.commute_time_mins} mins")
 		print(f"Link: {apt.website}\n")
+
+		export_path = export_apartments_to_spreadsheet(
+			viable_apartments,
+			Config.OUTPUT_SPREADSHEET_PATH,
+		)
+		print(f"Spreadsheet export written to {export_path}")
 
 if __name__ == "__main__":
 	main()
