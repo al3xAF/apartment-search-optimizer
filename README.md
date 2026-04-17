@@ -1,5 +1,5 @@
-Apartment Tour Optimizer
-========================
+Apartment Search Optimizer
+==========================
 
 Searches a metro area for apartment buildings and filters them by quality and commute constraints. Outputs viable apartments with address, commute time, rating details, and website link.
 Also exports the final apartment list to an Excel spreadsheet.

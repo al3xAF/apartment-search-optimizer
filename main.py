@@ -5,7 +5,7 @@ from api.commute import filter_by_commute
 from output.spreadsheet import export_apartments_to_spreadsheet
 
 def main():
-	print("Starting Apartment Tour Optimizer...\n")
+	print("Starting Apartment Search Optimizer...\n")
 	
 	search_lat = float(Config.TARGET_DESTINATION_LAT)
 	search_lng = float(Config.TARGET_DESTINATION_LNG)
