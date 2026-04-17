@@ -2,6 +2,7 @@ Apartment Tour Optimizer
 ========================
 
 Searches a metro area for apartment buildings and filters them by quality and commute constraints. Outputs viable apartments with address, commute time, rating details, and website link.
+Also exports the final apartment list to an Excel spreadsheet.
 
 
 How It Works
@@ -11,6 +12,7 @@ How It Works
 3. Website filter    — Drops listings that do not have a website value.
 4. Commute filter    — Sends remaining locations to the Distance Matrix API in batches of 25 and drops any apartment with a driving commute longer than MAX_COMMUTE_MINS.
 5. Results printout  — Prints name, rating, address, commute time, and website for each apartment that passed all filters.
+6. Spreadsheet export — Writes the filtered results to an `.xlsx` file for easier review and sharing.
 
 
 Setup
@@ -43,11 +45,14 @@ Setup
    - `TARGET_PRICE` — Target monthly rent (default: 1350)
    - `PRICE_VARIANCE_PCT` — Allowed variance around target price (default: 0.05)
    - `SEARCH_RADIUS_METERS` — Radius per grid sector (default: 16000)
+   - `OUTPUT_SPREADSHEET_PATH` — Output path for spreadsheet export (default: `outputs/apartment_results.xlsx`)
 
 
 Running
 -------
     python main.py
+
+After each run, the script exports a spreadsheet to the configured `OUTPUT_SPREADSHEET_PATH`.
 
 
 Required Google APIs
