@@ -36,8 +36,12 @@ def filter_by_commute(apartments: List[Apartment], dest_lat: float, dest_lng: fl
         # Add a half-second delay between batches so we don't hit rate limits
         if i > 0:
             time.sleep(0.5)
-            
-        response = requests.get(url, params=params)
+
+        try:
+            response = requests.get(url, params=params, timeout=20)
+        except requests.RequestException as exc:
+            print(f"Distance Matrix request failed on batch {(i // batch_size) + 1}: {exc}")
+            continue
         
         if response.status_code != 200:
             print(f"Distance Matrix API Error on batch: {response.status_code}")
