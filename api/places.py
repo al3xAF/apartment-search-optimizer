@@ -7,9 +7,9 @@ from config import Config
 def fetch_nearby_apartments() -> List[Apartment]:
     """Sweeps a dense 5x5 grid across the city to return hundreds of results."""
     
-    # Dynamically generate a 5x5 grid (25 search zones)
-    # 0.075 degrees is roughly 5 miles of distance between each point
-    step_sizes = [-0.15, -0.075, 0.0, 0.075, 0.15]
+    # Dynamically generate a 9x9 grid (81 search zones)
+    # 0.15 degrees is roughly 10 miles of distance between each point
+    step_sizes = [-0.60, -0.45, -0.30, -0.15, 0.0, 0.15, 0.30, 0.45, 0.60]
     grid_offsets = []
     
     for lat_offset in step_sizes:
@@ -26,7 +26,7 @@ def fetch_nearby_apartments() -> List[Apartment]:
     apartments = []
     seen_ids = set() # Tracks duplicates across overlapping circles
     
-    print(f"Sweeping Columbus metro area across {len(grid_offsets)} grid sectors...")
+    print(f"Sweeping metro area across {len(grid_offsets)} grid sectors...")
     
     for i, (lat_offset, lng_offset) in enumerate(grid_offsets):
         search_lat = Config.SEARCH_CENTER_LAT + lat_offset
@@ -38,7 +38,7 @@ def fetch_nearby_apartments() -> List[Apartment]:
             "locationRestriction": {
                 "circle": {
                     "center": {"latitude": search_lat, "longitude": search_lng},
-                    "radius": 10000 # 10km radius ensures tight overlap between grid points
+                    "radius": 16000 # 16km radius ensures tight overlap between grid points
                 }
             }
         }
@@ -74,6 +74,6 @@ def fetch_nearby_apartments() -> List[Apartment]:
             )
             apartments.append(apt)
             
-        print(f"Sector {i+1}/25 complete: Found {new_finds} new apartments.")
+        print(f"Sector {i+1}/{len(grid_offsets)} complete: Found {new_finds} new apartments.")
             
     return apartments
