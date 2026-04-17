@@ -11,6 +11,7 @@ class Config:
 	SEARCH_CENTER_LNG = float(os.getenv("SEARCH_CENTER_LNG"))
 	
 	SEARCH_RADIUS_METERS = 16000
+	OUTPUT_SPREADSHEET_PATH = os.getenv("OUTPUT_SPREADSHEET_PATH", "outputs/apartment_results.xlsx")
 	
 	TARGET_PRICE = 1350
 	PRICE_VARIANCE_PCT = 0.05
