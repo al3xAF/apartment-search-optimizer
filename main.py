@@ -36,11 +36,11 @@ def main():
 		print(f"Commute: {apt.commute_time_mins} mins")
 		print(f"Link: {apt.website}\n")
 
-		export_path = export_apartments_to_spreadsheet(
-			viable_apartments,
-			Config.OUTPUT_SPREADSHEET_PATH,
-		)
-		print(f"Spreadsheet export written to {export_path}")
+	export_path = export_apartments_to_spreadsheet(
+		viable_apartments,
+		Config.OUTPUT_SPREADSHEET_PATH,
+	)
+	print(f"Spreadsheet export written to {export_path}")
 
 if __name__ == "__main__":
 	main()
