@@ -28,13 +28,12 @@ def main():
 	
 	# Output
 	for apt in viable_apartments:
-		website_display = apt.website if apt.website else "No website listed"
-		rating_display = f"{apt.rating}★ ({apt.user_rating_count} reviews)" if apt.rating else "No reviews"
+		rating_display = f"{apt.rating}★ ({apt.user_rating_count} reviews)" if apt.rating is not None else "No reviews"
 		
 		print(f"{apt.name} | {rating_display}")
 		print(f"Location: {apt.address}")
 		print(f"Commute: {apt.commute_time_mins} mins")
-		print(f"Link: {website_display}\n")
+		print(f"Link: {apt.website}\n")
 
 if __name__ == "__main__":
 	main()
