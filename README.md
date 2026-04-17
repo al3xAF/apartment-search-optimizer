@@ -5,6 +5,12 @@ Searches a metro area for apartment buildings and filters them by quality and co
 Also exports the final apartment list to an Excel spreadsheet.
 
 
+License
+-------
+This project is licensed under the MIT License.
+The MIT License applies to the entire repository history, including commits created before the LICENSE file was added.
+
+
 How It Works
 ------------
 1. Places API sweep  — Runs a 9x9 grid of nearby-search requests (81 sectors, up to 20 results each) and deduplicates by place id.
