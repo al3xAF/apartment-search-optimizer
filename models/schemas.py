@@ -12,3 +12,4 @@ class Apartment:
 	commute_time_mins: Optional[int] = None
 	studio_price: Optional[int] = None
 	one_bed_price: Optional[int] = None
+	two_bed_price: Optional[int] = None
