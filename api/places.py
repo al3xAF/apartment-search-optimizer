@@ -5,7 +5,7 @@ from models.schemas import Apartment
 from config import Config
 
 def fetch_nearby_apartments() -> List[Apartment]:
-    """Sweeps a dense 5x5 grid across the city to return hundreds of results."""
+    """Sweeps a dense 9x9 grid across the city to return hundreds of results."""
     
     # Dynamically generate a 9x9 grid (81 search zones)
     # 0.15 degrees is roughly 10 miles of distance between each point
@@ -38,7 +38,7 @@ def fetch_nearby_apartments() -> List[Apartment]:
             "locationRestriction": {
                 "circle": {
                     "center": {"latitude": search_lat, "longitude": search_lng},
-                    "radius": 16000 # 16km radius ensures tight overlap between grid points
+                    "radius": Config.SEARCH_RADIUS_METERS
                 }
             }
         }
@@ -46,7 +46,11 @@ def fetch_nearby_apartments() -> List[Apartment]:
         # Add a tiny delay so we don't trip Google's rate limit for free tiers
         time.sleep(0.2)
         
-        response = requests.post(url, headers=headers, json=payload)
+        try:
+            response = requests.post(url, headers=headers, json=payload, timeout=20)
+        except requests.RequestException as exc:
+            print(f"Places API request failed on sector {i+1}: {exc}")
+            continue
         
         if response.status_code != 200:
             print(f"API Error on sector {i+1}: {response.status_code}")
