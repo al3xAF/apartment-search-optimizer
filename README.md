@@ -1,14 +1,16 @@
 Apartment Tour Optimizer
 ========================
 
-Searches a metro area for apartment buildings and filters them by driving commute time to a target destination. Outputs a ranked list of viable apartments with addresses, commute times, and website links.
+Searches a metro area for apartment buildings and filters them by quality and commute constraints. Outputs viable apartments with address, commute time, rating details, and website link.
 
 
 How It Works
 ------------
-1. Places API sweep  — Runs a 9x9 grid of nearby-search requests spanning ~40 miles in each direction from the origin (81 sectors, up to 20 results each) to collect apartment buildings/complexes.
-2. Commute filter    — Sends the collected locations to the Distance Matrix API in batches of 25 and drops any apartment with a driving commute longer than MAX_COMMUTE_MINS.
-3. Results printout  — Prints the name, address, commute time, and website for every apartment that passed the filter.
+1. Places API sweep  — Runs a 9x9 grid of nearby-search requests (81 sectors, up to 20 results each) and deduplicates by place id.
+2. Rating filter     — Drops listings with rating below MIN_RATING when rating data exists, and also requires at least MIN_REVIEW_COUNT reviews for rated properties.
+3. Website filter    — Drops listings that do not have a website value.
+4. Commute filter    — Sends remaining locations to the Distance Matrix API in batches of 25 and drops any apartment with a driving commute longer than MAX_COMMUTE_MINS.
+5. Results printout  — Prints name, rating, address, commute time, and website for each apartment that passed all filters.
 
 
 Setup
@@ -35,9 +37,12 @@ Setup
        TARGET_LNG=your_destination_longitude
 
 4. (Optional) Adjust thresholds in config.py:
-   - MAX_COMMUTE_MINS  — Maximum acceptable commute in minutes (default: 25)
-   - TARGET_PRICE      — Target monthly rent (default: 1500)
-   - SEARCH_RADIUS_METERS — Radius per grid sector (default: 50000)
+       - MAX_COMMUTE_MINS   — Maximum acceptable commute in minutes (default: 30)
+       - MIN_RATING         — Minimum rating to keep a rated listing (default: 4.0)
+       - MIN_REVIEW_COUNT   — Minimum number of reviews for rated listings (default: 10)
+       - TARGET_PRICE       — Target monthly rent (default: 1350)
+       - PRICE_VARIANCE_PCT — Allowed variance around target price (default: 0.05)
+       - SEARCH_RADIUS_METERS — Radius per grid sector (default: 50000)
 
 
 Running
@@ -52,5 +57,5 @@ Enable both of these in your Google Cloud project:
   - Distance Matrix API
 
 Both require a billing-enabled project. The grid sweep makes 81 Places API calls;
-the commute filter makes one Distance Matrix call per 25 apartments found.
+the commute filter makes one Distance Matrix call per 25 apartments after the rating and website filters.
 
